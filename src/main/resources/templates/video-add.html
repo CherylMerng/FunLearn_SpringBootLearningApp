@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Video</title>
+</head>
+
+<div sec:authorize="hasAuthority('admin')">
+
+    <body>
+        <div th:replace="fragments/layout.html :: menu"></div>
+        <div th:replace="fragments/layout.html :: sub_menu"></div>
+        <link th:href="@{/styles/video-add.css}" rel="stylesheet" />
+
+        <div class="main-container">
+            <h1>Add New Video</h1>
+            <form th:object="${newVideo}" th:action="@{/admin/addvideo}" method="POST">
+                <div class="form-item-container">
+                    <div class="label-container"><label>Title</label></div>
+                    <div class="input-container">
+                        <input type="text" th:field="*{title}">
+                        <span class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </div>
+                </div>
+                <div class="form-item-container">
+                    <div class="label-container"><label>Description</label></div>
+                    <div class="input-container">
+                        <input type="text" th:field="*{description}">
+                        <span class="error-message" th:if="${#fields.hasErrors('description')}"
+                            th:errors="*{description}"></span>
+                    </div>
+                </div>
+                <div class="form-item-container">
+                    <div class="label-container"><label>Video URL</label></div>
+                    <div class="input-container">
+                        <textarea th:field="*{videoURL}"></textarea>
+                        <span class="error-message" th:if="${#fields.hasErrors('videoURL')}"
+                            th:errors="*{videoURL}"></span>
+                    </div>
+                </div>
+
+                <div class="form-item-container">
+                    <div class="label-container"></div>
+                    <div class="input-container">
+                        <input type="submit" value="Submit" class="submit-btn">
+                    </div>
+                </div>
+            </form><br>
+            <div><a th:href="@{/admin/viewvideolist/}">Back to Videos Page</a></div>
+        </div>
+    </body>
+</div>
+
+</html>

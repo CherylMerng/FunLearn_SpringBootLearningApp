@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/layout.html :: html_head">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<title>View Dashboard</title>
+</head>
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+<div class="container my-2 center">
+<body>
+
+    <h2>My Dashboard</h2>
+    <br>
+    <table th:if="${#maps.isEmpty(map)}">
+        <tr><td colspan="4"> You have not registered any child yet to view their learning history. <br>Please register your child account under View/Manage Profile -> Manage Child Profile -> Create New Child Account. </td></tr>
+    </table>
+    <table th:unless="${#maps.isEmpty(map)}">
+        <tr><td><h4>Child's Quiz History</h4>
+    <table border="1" th:each="userquiz: ${map}">
+        <tr>
+            <td colspan="4" th:text="${'Child username ' + userquiz.key.userName + ' ; Child fullname ' + userquiz.key.fullName}"></td>
+        </tr>
+        <tr th:unless= "${#lists.isEmpty(userquiz.value)}">
+            <td>Date of Attempt</td>
+            <td>Quiz ID</td>
+            <td>Quiz Score</td>
+            <td>Details of Quiz</td>
+        </tr>
+        <tr th:if= "${#lists.isEmpty(userquiz.value)}">
+            <td colspan="4">There are no quiz attempts by this child yet.</td>
+        </tr>
+        <tr th:each="quiz : ${userquiz.value}"><td th:text="${quiz.attemptDate}"></td><td th:text="${quiz.id}"></td><td th:text="${quiz.score}"></td><td><a th:href="@{/parent/selectedquiz(id=${quiz.id})}">View</a></td></tr><br>
+    </table>
+</td><td><h4>Child's Video History</h4><table border="1" th:each="v: ${videomap}">
+    <tr>
+        <td colspan="3" th:text="${'Child username ' + v.key.userName + ' ; Child fullname ' + v.key.fullName}"></td>
+    </tr>
+    <tr th:unless= "${#lists.isEmpty(v.value)}">
+        <td>Date Watched</td>
+        <td>Video Title</td>
+        <td>Details of Video</td>
+    </tr>
+    <tr th:if= "${#lists.isEmpty(v.value)}">
+        <td colspan="3">There are no videos watched by this child yet.</td>
+    </tr>
+    <tr th:each="video : ${v.value}"><td th:text="${video.dateWatched}"></td><td th:text="${video.video.title}"></td><td><a th:href="@{/parent/selectedvideo(id=${video.video.videoId})}">View</a></td></tr><br>
+</table> </td></tr>
+</table>
+<br>
+<h4>My Quality of Life in Autism Questionaire History </h4>
+    <table border="1" >
+        <tr th:unless= "${#lists.isEmpty(surveyScores)}">
+            <td>Date of Attempt</td>
+            <td>Questionaire Category</td>
+            <td>Score</td>
+            <td>Details of Attempt</td>
+        </tr>
+        <tr th:if= "${#lists.isEmpty(surveyScores)}">
+            <td colspan="4">There are no questionaire attempts by yourself yet.</td>
+        </tr>
+        <tr th:each="score : ${surveyScores}"><td th:text="${score.attemptDate}"></td><td th:text="${score.id}"></td><td th:text="${score.totalScore}"></td><td><a th:href="@{/parent/selectedsurvey(id=${score.id})}">View</a></td></tr><br>
+    </table>
+    <br>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="html_head" id="html_head">
+  <meta charset="ISO-8859-1">
+  <title>Fun Learning</title>
+  <link rel="stylesheet" th:href="@{/styles/layout.css}" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+  <div th:fragment="menu" id="menu">
+    <div sec:authorize="hasAuthority('admin')">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light1">
+        <a class="navbar-brand" th:href="@{/admin/menu}">
+          <img th:src="@{/images/funlearnLogo.jpg}" width="60" height="60" class="d-inline-block align-top" alt="">
+          <span style="color:#A06204">Fun</span> <span style="color:#112E51">Learning for Autistic Kids</span>
+        </a>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+
+          </ul>
+          <form class="form-inline my-2 my-lg-0 ">
+            <div class="user-container">
+              <em th:utext="'Hello '"></em><span sec:authentication="name"></span>
+              <span> | </span>
+              <a th:href="@{/logout}">Logout</a>
+            </div>
+          </form>
+        </div>
+      </nav>
+      <hr style="margin: 0;">
+    </div>
+    <div sec:authorize="hasAuthority('parent')">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light1">
+        <a class="navbar-brand" th:href="@{/parent/menu}">
+          <img th:src="@{/images/funlearnLogo.jpg}" width="60" height="60" class="d-inline-block align-top" alt="">
+          <span style="color:#A06204">Fun</span> <span style="color:#112E51">Learning for Autistic Kids</span>
+        </a>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+
+          </ul>
+          <form class="form-inline my-2 my-lg-0 ">
+            <div class="user-container">
+              <em th:utext="'Hello '"></em><span sec:authentication="name"></span>
+              <span> | </span>
+              <a th:href="@{/login}">Logout</a>
+            </div>
+          </form>
+        </div>
+      </nav>
+      <hr style="margin: 0;">
+    </div>
+    <div sec:authorize="hasAuthority('child')">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light1">
+        <a class="navbar-brand" th:href="@{/child/menu}">
+          <img th:src="@{/images/funlearnLogo.jpg}" width="60" height="60" class="d-inline-block align-top" alt="">
+          <span style="color:#A06204">Fun</span> <span style="color:#112E51">Learning for Autistic Kids</span>
+        </a>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+
+          </ul>
+          <form class="form-inline my-2 my-lg-0 ">
+            <div class="user-container">
+              <em th:utext="'Hello '"></em><span sec:authentication="name"></span>
+              <span> | </span>
+              <a th:href="@{/login}">Logout</a>
+            </div>
+          </form>
+        </div>
+      </nav>
+      <hr style="margin: 0;">
+    </div>
+  </div>
+
+  <div th:fragment="sub_menu" id="sub_menu">
+    <div sec:authorize="hasAuthority('admin')">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/admin/viewvideolist}">
+                Manage Learning Videos <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/admin/addvideo}">
+                Add New Videos <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/admin/viewaccounts}">
+                Manage Accounts <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/admin/viewfeedback}">
+                View Feedbacks <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div sec:authorize="hasAuthority('parent')">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/parent/viewdashboard}">
+                View Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/parent/dosurvey}">
+                Take Survey <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/parent/viewprofile}">
+                View/Manage Profile <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/parent/viewfeedback}">
+                View Feedbacks <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/parent/givefeedback}">
+                Give Feedback <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/parent/testingchildfeatures}">
+                Testing out Child Features <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div sec:authorize="hasAuthority('child')">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/child/learn}">
+                Learn Facial Expression By Practicing <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/child/quiz}">
+                Take Facial Expression Quiz <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/child/watchvideo}">
+                Watch Learning Videos <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div th:fragment="register" id="register">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light1">
+      <a class="navbar-brand" th:href="@{/admin/menu}">
+        <img th:src="@{/images/funlearnLogo.jpg}" width="60" height="60" class="d-inline-block align-top" alt="">
+        <span style="color:#A06204">Fun</span> <span style="color:#112E51">Learning for Autistic Kids</span>
+      </a>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+
+      </div>
+    </nav>
+    <hr style="margin: 0;">
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+body{
+    background-color: #AFFAFF;
+
+}
+h2{
+    text-align: center;
+}
+
+.video-center{
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.error-message{
+    /* text-align: right; */
+    font-style: italic;
+    width: 100%;
+    float: left;
+    /* border: solid 1px green; */
+    color:darkred;
+    font-size: 0.875em;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+.delete-video-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.delete-video-container>form>input{
+    width: 150px;
+    padding: 0.3em;
+    margin: 0.3em;
+	background: #0066A2;
+	border-color: #005383;
+	color: white;
+	border-style: outset;
+    border-radius: 4px;
+	text-shadow: none;
+    transition: transform .1s;
+}
+.video-btn:hover{
+    transform: scale(1.05);
+}
+
+.delete-video-container>form>input[type=submit]{
+    background: #c44b4f;
+	border-color: #8a2427;
+}

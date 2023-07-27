@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Watch Video</title>
+</head>
+
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+
+<div sec:authorize="hasAuthority('admin')">
+    <body >
+        <link th:href="@{/styles/video-play.css}" rel="stylesheet" />
+        <div class="container my-2 center">
+        <div th:object="${selectedVideo}">
+            <h2 th:text="*{title}">Title</h2>
+            <div>
+                <div  class="video-center">
+                    <iframe width="640  " height="480" th:src="@{${'https://www.youtube.com/embed/' + selectedVideo.videoURL}}" frameborder="0" allow="accelerometer; autoplay;
+                    clipboard-write; encrypted-media;
+                    gyroscope; picture-in-picture" allowfullscreen style="border:1px solid black;">
+                    </iframe>
+                </div>
+                <div class="delete-video-container">
+                    <p class="error-message">Remove video if the link is not working!</p>
+                    <form th:action="@{/admin/deletevideo(id=${selectedVideo.videoId})}" method="POST">
+                        <input type="submit" value="Delete Video" class="btn btn-primary btn-sm mb-3">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+    </body>
+</div>
+
+
+</html>

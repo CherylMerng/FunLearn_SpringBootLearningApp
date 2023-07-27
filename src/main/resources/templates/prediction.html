@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <p th:if="${#strings.length(prediction)} < 15" class="font-weight-bold mb-0 mt-2" style="text-align:center">Predicted Emotion:</p>
+    <div class="container justify-content-center">
+        <div class="col d-flex justify-content-center align-items-center">
+            <img width="160px" th:if="${prediction == 'Angry'}" th:src="@{images/angry.jpg}">
+            <img width="160px" th:if="${prediction == 'Disgust'}" th:src="@{images/disgust.jpg}">
+            <img  width="160px" th:if="${prediction == 'Fear'}" th:src="@{images/fear.jpg}">
+            <img  width="160px" th:if="${prediction == 'Happy'}" th:src="@{images/happy.jpg}">
+            <img  width="160px" th:if="${prediction == 'Neutral'}" th:src="@{images/neutral.jpg}">
+            <img  width="160px" th:if="${prediction == 'Sad'}" th:src="@{images/sad.jpg}">
+            <img  width="160px" th:if="${prediction == 'Surprise'}" th:src="@{images/surprise.jpg}">
+        </div>
+        <p class="my-4" th:if="${prediction == 'Unable to make a prediction on your expression. Take note to show your face clearly when capturing photo on the web screen. Please try again.'}">Unable to make a prediction on your expression. Take note to show your face clearly when capturing photo. Please try again.</p>
+        <p class="my-4" th:if="${prediction == 'An error has occurred. Please try again.'}">An error has occurred. Please try again.</p>
+        <img th:src="@{/images/error-icon.png}" th:if="${prediction == 'An error has occurred. Please try again.'}" width="70" class="mx-auto d-block" alt="">
+    </div>
+</body>
+
+</html>

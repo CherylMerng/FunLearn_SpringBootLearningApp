@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <title>View Feedback</title>
+</head>
+
+<body>
+    <link th:href="@{/styles/viewfeedback.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/viewfeedback.js}"></script>
+
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <div th:replace="fragments/layout.html :: sub_menu"></div>
+    
+    <h3>View Feedback</h3>
+    <br>
+    <div class="container-fluid">
+        <div class="row mx-3 align-items-end">
+            <div class="col ml-3">
+                <input type="checkbox" id="select_all" name="select_all" onclick="toggle_checkbox()">&nbsp;
+                <a href="javascript:updateRead(true)" class="disabled" id="mread" name="mlink">Mark as Read</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="javascript:updateRead(false)" class="disabled" id="munread" name="mlink">Mark as Unread</a>
+            </div>
+            <div class="col-sm-auto">
+                <div class="float-right">
+                    <form th:action="@{/admin/viewfeedback}" th:object="${feedbackDTO}" method="post">
+                        <select th:field="*{viewType}">
+                            <option value="all" th:selected="*{viewType} == 'all'">All</option>
+                            <option value="unread" th:selected="*{viewType} == 'unread'">Unread</option>
+                            <option value="read" th:selected="*{viewType} == 'read'">Read</option>
+                            <option value="replied" th:selected="*{viewType} == 'replied'">Replied</option>
+                        </select>
+                        <select th:field="*{sortBy}">
+                            <option value="date_asc" th:selected="*{sortBy} == 'date_asc'">Sort By Date (Ascending)</option>
+                            <option value="date_desc" th:selected="*{sortBy} == 'date_desc'">Sort By Date (Descending)</option>
+                            <option value="name_asc" th:selected="*{sortBy} == 'name_asc'">Sort By Username (Ascending)</option>
+                            <option value="name_desc" th:selected="*{sortBy} == 'name_desc'">Sort By Username (Descending)</option>
+                        </select>
+                        <input type="hidden" name="pageNumber" th:value="0"/>
+                        <input type="submit" value="Go">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-4" th:if="${totalPages == 0}">
+            <div class="row justify-content-center">
+                <b>No feedback found.</b>
+            </div>
+        </div>
+        <div th:each="feedback:${feedbacks}" th:if="${totalPages > 0}">
+            <div class="row m-3">
+                <div class="col">
+                    <div class="card" th:id="'card' + ${feedback.feedbackId}" th:style="${!feedback.read} ? 'background: white' : 'background: #F5F5F5'">
+                        <div class="card-body">
+                            <div class="row ml-4 mb-2" th:id="'tags' + ${feedback.feedbackId}" th:hidden="${!feedback.read}">
+                                <div class="border px-2 mr-2 bg-primary text-white rounded">Read</div>
+                                <div class="border px-2 bg-success text-white rounded" th:id="'repliedtag' + ${feedback.feedbackId}" th:hidden="${feedback.reply} == null or ${feedback.reply} == ''">Replied</div>
+                            </div>
+                            <div class="card-title">
+                                <input type="checkbox" th:id="${feedback.feedbackId}" name="select_one" th:value="${feedback.feedbackId}" onclick="toggle_maincheckbox()">&nbsp;
+                                <span class="h5" th:text="${feedback.subject}"></span>
+                                <div class="float-right border rounded-xl bg-info text-white px-5" th:text="${feedback.user.userName}"></div>
+                            </div>
+                            <h6 class="card-subtitle mb-3 ml-4 text-muted" th:text="${feedback.feedbackDate}">Date</h6>
+                            <p class="card-text ml-4" th:text="${feedback.description}">Description</p>
+                            <input class="btn btn-primary ml-4 mb-3" type="button" data-toggle="collapse" th:attr="data-target=|#id${feedback.feedbackId}|" th:id="'opener' + ${feedback.feedbackId}" th:value="${feedback.reply} != null and ${feedback.reply} != '' ? 'View Reply' : '+ Send Reply'">
+                            <div class="collapse" th:id="'id' + ${feedback.feedbackId}">
+                                <div class="card card-body">
+                                    <textarea rows="10" name="replybox" th:id="'text' + ${feedback.feedbackId}" th:text="${feedback.reply}" th:disabled="${feedback.reply} != null and ${feedback.reply} != ''"></textarea><br>
+                                    <div class="row border py-2 ml-1 mr-1 mb-3 justify-content-center text-white" th:id="'success' + ${feedback.feedbackId}" style="background: #3eff81;" hidden>Email Sent</div>
+                                    <div class="row border py-2 ml-1 mr-1 mb-3 justify-content-center text-white" th:id="'failed' + ${feedback.feedbackId}" style="background: #ff5353;" hidden>An Error Has Occurred</div>
+                                    <input class="btn btn-primary" type="button" th:unless="${feedback.reply} != null and ${feedback.reply} != ''" th:id="'btn' + ${feedback.feedbackId}" onclick="sendReply(this.id)" value="Send Reply" disabled></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center my-3" th:if="${totalPages > 0}">
+            <div class="col-sm-auto pr-1">
+                <form th:action="@{/admin/viewfeedback}" th:object="${feedbackDTO}" method="post">
+                    <input type="hidden" th:field="*{viewType}" th:value="${feedbackDTO.viewType}">
+                    <input type="hidden" th:field="*{sortBy}" th:value="${feedbackDTO.sortBy}">
+                    <input type="hidden" name="pageNumber" th:value="0">
+                    <input th:classappend="${feedbackDTO.pageNumber <= 0} ? btndisable : ''" th:disabled="${feedbackDTO.pageNumber <= 0}" type="submit" class="pagebtn" value="<<"/>
+                </form>
+            </div>
+            <div class="col-sm-auto p-0">
+                <form th:action="@{/admin/viewfeedback}" th:object="${feedbackDTO}" method="post">
+                    <input type="hidden" th:field="*{viewType}" th:value="${feedbackDTO.viewType}">
+                    <input type="hidden" th:field="*{sortBy}" th:value="${feedbackDTO.sortBy}">
+                    <input type="hidden" name="pageNumber" th:value="${feedbackDTO.pageNumber - 1}">
+                    <input th:classappend="${feedbackDTO.pageNumber <= 0} ? btndisable : ''" th:disabled="${feedbackDTO.pageNumber <= 0}" type="submit" class="pagebtn" value="<"/>
+                </form>
+            </div>
+            <div class="col-sm-auto">
+                <span th:text="${feedbackDTO.pageNumber + 1} + ' / '+ ${totalPages}"></span>
+            </div>
+            <div class="col-sm-auto p-0">
+                <form th:action="@{/admin/viewfeedback}" th:object="${feedbackDTO}" method="post">
+                    <input type="hidden" th:field="*{viewType}" th:value="${feedbackDTO.viewType}">
+                    <input type="hidden" th:field="*{sortBy}" th:value="${feedbackDTO.sortBy}">
+                    <input type="hidden" name="pageNumber" th:value="${feedbackDTO.pageNumber + 1}">
+                    <input th:classappend="${feedbackDTO.pageNumber + 1 >= totalPages} ? btndisable : ''" th:disabled="${feedbackDTO.pageNumber + 1 >= totalPages}" type="submit" class="pagebtn" value=">"/>
+                </form>
+            </div>
+            <div class="col-sm-auto pl-1">
+                <form th:action="@{/admin/viewfeedback}" th:object="${feedbackDTO}" method="post">
+                    <input type="hidden" th:field="*{viewType}" th:value="${feedbackDTO.viewType}">
+                    <input type="hidden" th:field="*{sortBy}" th:value="${feedbackDTO.sortBy}">
+                    <input type="hidden" name="pageNumber" th:value="${totalPages}">
+                    <input th:classappend="${feedbackDTO.pageNumber + 1 >= totalPages} ? btndisable : ''" th:disabled="${feedbackDTO.pageNumber + 1 >= totalPages}" type="submit" class="pagebtn" value=">>"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

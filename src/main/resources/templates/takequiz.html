@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="utf-8">
+    <title>Take Facial Expressions Quiz</title>
+</head>
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+
+<div class="container my-2 center">
+
+    <body style="background-color:rgb(174, 248, 253);">
+        <h4>Take Facial Expressions Quiz</h3>
+            <h8> There are 10 images randomly selected and displayed in this page.
+                <br> (FYI: These images are classified and used for training and testing of the current prediction
+                model.)
+                <br>Please select an emotion (from the dropdown list) that best describe the facial expression in each
+                image.
+                <br> There are seven categories of emotions namely Happy, Surprise, Angry, Sad, Disgust, Neutral and
+                Fear.
+                <br> Please choose your answers carefully before submitting for your score.
+            </h8>
+            <div sec:authorize="hasAuthority('child')">
+            <form th:action="@{/child/quiz}" th:object="${quiz}" method="POST">
+                <table>
+                    <tr>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question1}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question2}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question3}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question4}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question5}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" th:field="*{question1}" />
+                        <td><input type="hidden" th:field="*{question2}" />
+                        <td><input type="hidden" th:field="*{question3}" />
+                        <td><input type="hidden" th:field="*{question4}" />
+                        <td><input type="hidden" th:field="*{question5}" />
+                    </tr>
+                    <tr>
+                        <td>
+                            <select class="form-control" th:field="*{question1Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        <td>
+                            <select class="form-control" th:field="*{question2Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                        <td>
+                            <select class="form-control" th:field="*{question3Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                        <td>
+                            <select class="form-control" th:field="*{question4Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" th:field="*{question5Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question1Guess')}"
+                            th:errors="*{question1Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question1Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question2Guess')}"
+                            th:errors="*{question2Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question2Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question3Guess')}"
+                            th:errors="*{question3Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question3Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question4Guess')}"
+                            th:errors="*{question4Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question4Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question5Guess')}"
+                            th:errors="*{question5Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question5Guess')}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question6}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question7}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question8}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question9}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                        <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question10}}" class="card img-fluid"
+                                style="width:120px" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" th:field="*{question6}" />
+                        <td><input type="hidden" th:field="*{question7}" />
+                        <td><input type="hidden" th:field="*{question8}" />
+                        <td><input type="hidden" th:field="*{question9}" />
+                        <td><input type="hidden" th:field="*{question10}" />
+                    </tr>
+                    <tr>
+                        <td>
+                            <select class="form-control" th:field="*{question6Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" th:field="*{question7Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" th:field="*{question8Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" th:field="*{question9Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" th:field="*{question10Guess}">
+                                <option th:value="None">Select</option>
+                                <option th:value="Happy">Happy</option>
+                                <option th:value="Surprise">Surprise</option>
+                                <option th:value="Angry">Angry</option>
+                                <option th:value="Sad">Sad</option>
+                                <option th:value="Disgust">Disgust</option>
+                                <option th:value="Neutral">Neutral</option>
+                                <option th:value="Fear">Fear</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question6Guess')}"
+                            th:errors="*{question6Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question6Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question7Guess')}"
+                            th:errors="*{question7Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question7Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question8Guess')}"
+                            th:errors="*{question8Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question8Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question9Guess')}"
+                            th:errors="*{question9Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question9Guess')}">
+                        </td>
+                        <td class="alert alert-warning" th:if="${#fields.hasErrors('question10Guess')}"
+                            th:errors="*{question10Guess}" style="color:red">
+                        <td class="alert alert-warning" th:unless="${#fields.hasErrors('question10Guess')}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><input type="submit" value="Submit Quiz Answers"
+                                class="btn btn-primary btn-sm mb-3">
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td colspan="5">
+                            <div>
+                                <a th:href="@{/child/menu}" class="btn btn-primary btn-sm mb-3">Return to Menu</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><br><a th:href="@{/logout}">LOGOUT</a></td>
+                    </tr> -->
+
+                </table>
+            </form></div>
+
+            <div sec:authorize="hasAuthority('parent')">
+                <form th:action="@{/parent/quiz}" th:object="${quiz}" method="POST">
+                    <table>
+                        <tr>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question1}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question2}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question3}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question4}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question5}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden" th:field="*{question1}" />
+                            <td><input type="hidden" th:field="*{question2}" />
+                            <td><input type="hidden" th:field="*{question3}" />
+                            <td><input type="hidden" th:field="*{question4}" />
+                            <td><input type="hidden" th:field="*{question5}" />
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control" th:field="*{question1Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            <td>
+                                <select class="form-control" th:field="*{question2Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                            <td>
+                                <select class="form-control" th:field="*{question3Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                            <td>
+                                <select class="form-control" th:field="*{question4Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" th:field="*{question5Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question1Guess')}"
+                                th:errors="*{question1Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question1Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question2Guess')}"
+                                th:errors="*{question2Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question2Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question3Guess')}"
+                                th:errors="*{question3Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question3Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question4Guess')}"
+                                th:errors="*{question4Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question4Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question5Guess')}"
+                                th:errors="*{question5Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question5Guess')}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question6}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question7}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question8}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question9}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                            <td> <img th:src="@{${'/parent/quiz/display/'+ quiz.question10}}" class="card img-fluid"
+                                    style="width:120px" /></td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden" th:field="*{question6}" />
+                            <td><input type="hidden" th:field="*{question7}" />
+                            <td><input type="hidden" th:field="*{question8}" />
+                            <td><input type="hidden" th:field="*{question9}" />
+                            <td><input type="hidden" th:field="*{question10}" />
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control" th:field="*{question6Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" th:field="*{question7Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" th:field="*{question8Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" th:field="*{question9Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" th:field="*{question10Guess}">
+                                    <option th:value="None">Select</option>
+                                    <option th:value="Happy">Happy</option>
+                                    <option th:value="Surprise">Surprise</option>
+                                    <option th:value="Angry">Angry</option>
+                                    <option th:value="Sad">Sad</option>
+                                    <option th:value="Disgust">Disgust</option>
+                                    <option th:value="Neutral">Neutral</option>
+                                    <option th:value="Fear">Fear</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question6Guess')}"
+                                th:errors="*{question6Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question6Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question7Guess')}"
+                                th:errors="*{question7Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question7Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question8Guess')}"
+                                th:errors="*{question8Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question8Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question9Guess')}"
+                                th:errors="*{question9Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question9Guess')}">
+                            </td>
+                            <td class="alert alert-warning" th:if="${#fields.hasErrors('question10Guess')}"
+                                th:errors="*{question10Guess}" style="color:red">
+                            <td class="alert alert-warning" th:unless="${#fields.hasErrors('question10Guess')}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"><input type="submit" value="Submit Quiz Answers"
+                                    class="btn btn-primary btn-sm mb-3">
+                            </td>
+                        </tr>
+                    </table>
+                </form></div>
+</div>
+</div>
+<script>
+
+</script>
+</body>
+
+</html>

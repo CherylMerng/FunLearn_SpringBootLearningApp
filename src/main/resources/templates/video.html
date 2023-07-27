@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/layout.html :: html_head">
+	<meta charset="utf-8">
+	<title>Watch selected video</title>
+</head>
+
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+<div class="container my-2 center">
+
+	<body style="background-color:rgb(174, 248, 253);">
+		<h2>Selected Video To Watch</h2>
+		<iframe width="560" height="315" th:src="${videoURL +'?autoplay=1'}" title="YouTube video player"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			allowfullscreen></iframe>
+		<p th:text="${'Title: ' + video.title}"></p>
+		<p th:text="${'Description: ' + video.description}"></p>
+		<p th:text="${'Posted on '+ video.postDate}"></p>
+		<!-- <div sec:authorize="hasAuthority('child')">
+			<a th:href="@{/child/watchvideo}" class="btn btn-primary btn-sm mb-3">Return to Video List</a>
+		</div>
+		<div sec:authorize="hasAuthority('parent')">
+			<a th:href="@{/parent/watchvideo}" class="btn btn-primary btn-sm mb-3">Return to Video List</a>
+		</div> -->
+		<!-- <div sec:authorize="hasAuthority('child')">
+		<a th:href="@{/child/menu}" class="btn btn-primary btn-sm mb-3">Return to Menu</a>
+	</div> -->
+		<!-- <div sec:authorize="hasAuthority('parent')">
+		<a th:href="@{/parent/viewdashboard}" class="btn btn-primary btn-sm mb-3">Return to Dashboard</a>
+	</div>
+	<div sec:authorize="hasAuthority('parent')">
+		<a th:href="@{/parent/menu}" class="btn btn-primary btn-sm mb-3">Return to Menu</a>
+	</div>
+<br><a th:href="@{/logout}">LOGOUT</a> </div> -->
+
+	</body>
+
+</html>

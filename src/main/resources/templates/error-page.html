@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/layout.html :: html_head">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light1">
+        <a class="navbar-brand">
+            <img th:src="@{/images/funlearnLogo.jpg}" width="60" height="60" class="d-inline-block align-top" alt="">
+            <span style="color:#A06204">Fun</span> <span style="color:#112E51">Learning for Autistic Kids</span>
+        </a>
+    </nav>
+
+    <img th:src="@{/images/error-icon.png}"  width="100" class="mt-5 mx-auto d-block" alt="">
+    <h3 class="mt-4 text-center" th:text="${errormsg}"></h3>
+    <button class="mt-5 mx-auto d-block" onclick="history.back()">Go Back</button>
+</body>
+</html>

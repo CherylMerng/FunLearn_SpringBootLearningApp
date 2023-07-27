@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <title>Personal Profile</title>
+
+</head>
+<body>
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+<div class="container mb-5">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="row mt-2">
+    <div class="col-md-12">
+    <div class="container bg-success py-2 mb-3 text-white" th:if="${action} == 'update-user'">
+        Profile updated
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-success py-2 mb-3 text-white" th:if="${action} == 'update-child'">
+        Child's profile updated
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-danger py-2 mb-3 text-white" th:if="${action} == 'user-error'">
+        Profile not found, please try again.
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-danger py-2 mb-3 text-white" th:if="${action} == 'child-error'">
+        Child's profile not found, please try again.
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-success py-2 mb-3 text-white" th:if="${action} == 'delete'">
+        Child's account deleted
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-danger py-2 mb-3 text-white" th:if="${action} == 'delete-unsuccessful'">
+        Failed to delete child's account
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-success py-2 mb-3 text-white" th:if="${action} == 'update-pswd'">
+        Password changed
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="page-header mt-2">
+        <div class="row">
+            <h2>View Profile</h2>
+            <a th:href="@{/parent/updateprofile}" class="fa fa-edit ml-3 align-self-center py-2 px-3 btn btn-primary"> Update</a>
+        </div>
+    </div>
+        <table class="table table-striped table-bordered mt-2" th:object="${user}">
+            <tr>
+                <th class="col-md-3">User Name</th>
+                <td class="col-md-9" th:text="*{userName}"></td>
+            </tr>
+            <tr>
+                <th>Full Name</th>
+                <td th:text="*{fullName}">
+
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:text="*{email}"></td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td th:text="*{role.getRoleName()}"></td>
+            </tr>
+        </table>
+            <h5 th:if="${action} == 'update'"> Profile updated </h5>
+
+            <table class="table table-striped table-bordered" th:action="@{/parent/viewprofile}" th:object="${user}" >
+                <div class="row">
+                    <h3> Manage Child Profile </h3>
+                    <a th:href="@{/parent/registerchildaccount}" class="btn btn-primary btn-sm align-self-center ml-3 mb-1">+ Create New Child Account</a>
+                </div>
+                <h6>Please note that the delete button once clicked is irreversible, as it will result in the complete deletion of the child account.
+                    <br>Please double confirm the child account to delete before clicking on the delete button.</h6>
+            
+            <tr th:unless="${#lists.isEmpty(children)}">
+                <th>Child Name</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
+            </tr>
+            <div class="text-center py-3 border" th:if="${#lists.isEmpty(children)}">
+                <h6>No child account found.</h6>
+            </div>
+            <tr th:each="child:${children}">
+                <td th:text="${child.userName}"></td>
+                <td th:text="${child.fullName}"></td>
+                <td th:text="${child.email}"></td>
+
+                <td>
+                    <form th:object="${child}"  th:action="@{/parent/updatechildprofile}" method="POST">
+                        <input type="hidden" name="userName" th:value="${child.userName}" />
+                        <input type="hidden" name="fullName" th:value="${child.fullName}" />
+                        <input type="hidden" name="email" th:value="${child.email}" />
+                        <input type="hidden" name="password" th:value="${child.password}" />
+                        <input type="submit" value="Update">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/parent/deletechild}" th:object="${child}" onsubmit="return confirm('Do you really wish to delete this account? This action cannot be undone.');" method="POST">
+                        <input type="hidden" name="userName" th:value="${child.userName}" />
+                        <input type="hidden" name="fullname" th:value="${child.fullName}" />
+                        <input type="hidden" name="email" th:value="${child.email}" />
+                        <input type="hidden" name="password" th:value="${child.password}" />
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

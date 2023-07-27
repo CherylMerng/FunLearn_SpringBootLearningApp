@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+    layout:decorator="layout">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="utf-8">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <div th:replace="fragments/layout.html :: sub_menu"></div>
+    <div class="container bg-success py-2 mt-4 mb-2 text-white" th:if="${action} == 'success'">
+        User account status changed.
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container bg-danger py-2 mt-4 mb-2 text-white" th:if="${action} == 'error'">
+        An error has occurred, please try again later.
+        <button class="close" aria-label="Close" onclick="this.parentElement.style.display = 'none';">&times;</button>
+    </div>
+    <div class="container my-4">
+        <div>
+            <form th:action="@{/admin/viewaccounts}" method="post">
+                <select name="displayType">
+                    <option th:selected="${displayType} == 'all'" value="all">All Accounts</option>
+                    <option th:selected="${displayType} == '3years'" value="3years">Last Access: >3 years</option>
+                    <option th:selected="${displayType} == 'active'" value="active">Active</option>
+                    <option th:selected="${displayType} == 'inactive'" value="inactive">Inactive</option>
+                </select>
+                <input type="submit" value="Go">
+            </form>
+        </div>
+        <div class="font-weight-bold d-flex justify-content-center pt-3" th:if="${#lists.isEmpty(userAccounts)}">
+            <h5>No account found.</h5>
+        </div>
+        <table class="table mt-3" th:unless="${#lists.isEmpty(userAccounts)}">
+            <tr class="font-weight-bold" style="background-color: gainsboro;">
+                <td>User Name</td>
+                <td>Full Name</td>
+                <td>Email</td>
+                <td>Status</td>
+                <td>Access Date</td>
+                <td>Change Status</td>
+            </tr>
+            
+            <tr th:each="account:${userAccounts}">
+                <td th:text="${account.userName}"></td>
+                <td th:text="${account.fullName}"></td>
+                <td th:text="${account.email}"></td>
+                <td th:text="${account.isActive}? 'Active' : 'Inactive'" th:style="|${account.isActive ? 'color: green;' : 'color: red;'}|"></td>
+                <form th:action="@{/admin/inactivateaccount}" method="post">
+                    <input name="isActive" value="false" hidden>
+                    <input name="userName" th:value="${account.userName}" hidden>
+                    <td th:text="${account.lastAccountAccess}"></td>
+                    <td><input th:disabled="${account.isActive} == False" type="submit" value="Inactivate" onclick="return confirm('Do you really wish to inactivate this account? This action cannot be undone.')"></td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

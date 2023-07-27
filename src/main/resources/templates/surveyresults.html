@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:replace="fragments/layout.html :: html_head">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <title>Quality of Life in Autism Questionaire Results</title>
+    </head>
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <div th:replace="fragments/layout.html :: sub_menu"></div>
+    <div class="container my-2 center">
+        <body>
+            <h4>Quality of Life in Autism Questionaire Results </h4>
+            <br>
+                <table th:object="${surveyObject}">
+                    <tr>
+                        <td>SN</td>
+                        <td>Question</td>
+                        <td>Submitted Rating<br>(1- Strongly Disagree; 5- Strongly Agree)</td>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td th:text="${surveyObject.question1description}"></td>
+                        <td th:text="*{question1Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td th:text="${surveyObject.question2description}"></td>
+                        <td th:text="*{question2Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td th:text="${surveyObject.question3description}"></td>
+                        <td th:text="*{question3Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td th:text="${surveyObject.question4description}"></td>
+                        <td th:text="*{question4Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td th:text="${surveyObject.question5description}"></td>
+                        <td th:text="*{question5Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td th:text="${surveyObject.question6description}"></td>
+                        <td th:text="*{question6Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td th:text="${surveyObject.question7description}"></td>
+                        <td th:text="*{question7Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td th:text="${surveyObject.question8description}"></td>
+                        <td th:text="*{question8Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td th:text="${surveyObject.question9description}"></td>
+                        <td th:text="*{question9Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10.</td>
+                        <td th:text="${surveyObject.question10description}"></td>
+                        <td th:text="*{question10Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td th:text="${surveyObject.question11description}"></td>
+                        <td th:text="*{question11Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>12.</td>
+                        <td th:text="${surveyObject.question12description}"></td>
+                        <td th:text="*{question12Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>13.</td>
+                        <td th:text="${surveyObject.question13description}"></td>
+                        <td th:text="*{question13Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>14.</td>
+                        <td th:text="${surveyObject.question14description}"></td>
+                        <td th:text="*{question14Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>15.</td>
+                        <td th:text="${surveyObject.question15description}"></td>
+                        <td th:text="*{question15Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>16.</td>
+                        <td th:text="${surveyObject.question16description}"></td>
+                        <td th:text="*{question16Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>17.</td>
+                        <td th:text="${surveyObject.question17description}"></td>
+                        <td th:text="*{question17Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>18.</td>
+                        <td th:text="${surveyObject.question18description}"></td>
+                        <td th:text="*{question18Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>19.</td>
+                        <td th:text="${surveyObject.question19description}"></td>
+                        <td th:text="*{question19Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>20.</td>
+                        <td th:text="${surveyObject.question20description}"></td>
+                        <td th:text="*{question20Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>21.</td>
+                        <td th:text="${surveyObject.question21description}"></td>
+                        <td th:text="*{question21Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>22.</td>
+                        <td th:text="${surveyObject.question22description}"></td>
+                        <td th:text="*{question22Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>23.</td>
+                        <td th:text="${surveyObject.question23description}"></td>
+                        <td th:text="*{question23Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>24.</td>
+                        <td th:text="${surveyObject.question24description}"></td>
+                        <td th:text="*{question24Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>25.</td>
+                        <td th:text="${surveyObject.question25description}"></td>
+                        <td th:text="*{question25Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>26.</td>
+                        <td th:text="${surveyObject.question26description}"></td>
+                        <td th:text="*{question26Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>27.</td>
+                        <td th:text="${surveyObject.question27description}"></td>
+                        <td th:text="*{question27Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>28.</td>
+                        <td th:text="${surveyObject.question28description}"></td>
+                        <td th:text="*{question28Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>29.</td>
+                        <td th:text="${surveyObject.question29description}"></td>
+                        <td th:text="*{question29Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>30.</td>
+                        <td th:text="${surveyObject.question30description}"></td>
+                        <td th:text="*{question30Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>31.</td>
+                        <td th:text="${surveyObject.question31description}"></td>
+                        <td th:text="*{question31Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>32.</td>
+                        <td th:text="${surveyObject.question32description}"></td>
+                        <td th:text="*{question32Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>33.</td>
+                        <td th:text="${surveyObject.question33description}"></td>
+                        <td th:text="*{question33Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>34.</td>
+                        <td th:text="${surveyObject.question34description}"></td>
+                        <td th:text="*{question34Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>35.</td>
+                        <td th:text="${surveyObject.question35description}"></td>
+                        <td th:text="*{question35Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>36.</td>
+                        <td th:text="${surveyObject.question36description}"></td>
+                        <td th:text="*{question36Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>37.</td>
+                        <td th:text="${surveyObject.question37description}"></td>
+                        <td th:text="*{question37Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>38.</td>
+                        <td th:text="${surveyObject.question38description}"></td>
+                        <td th:text="*{question38Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>39.</td>
+                        <td th:text="${surveyObject.question39description}"></td>
+                        <td th:text="*{question39Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>40.</td>
+                        <td th:text="${surveyObject.question40description}"></td>
+                        <td th:text="*{question40Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>41.</td>
+                        <td th:text="${surveyObject.question41description}"></td>
+                        <td th:text="*{question41Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>42.</td>
+                        <td th:text="${surveyObject.question42description}"></td>
+                        <td th:text="*{question42Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>43.</td>
+                        <td th:text="${surveyObject.question43description}"></td>
+                        <td th:text="*{question43Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>44.</td>
+                        <td th:text="${surveyObject.question44description}"></td>
+                        <td th:text="*{question44Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>45.</td>
+                        <td th:text="${surveyObject.question45description}"></td>
+                        <td th:text="*{question45Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>46.</td>
+                        <td th:text="${surveyObject.question46description}"></td>
+                        <td th:text="*{question46Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>47.</td>
+                        <td th:text="${surveyObject.question47description}"></td>
+                        <td th:text="*{question47Rating}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>48.</td>
+                        <td th:text="${surveyObject.question48description}"></td>
+                        <td th:text="*{question48Rating}">
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"
+                                th:text="${'Quality of Life Perception Score = ' + qolScore + ' out of 140 ' + ' ; Perception of the impact of the child Autistic Spectrum Disorder Symptoms Score = ' + perceptionScore + ' out of 100 '}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr th:if="${qolScore} >= ${averageqolScore}">
+                            <td colspan="3"
+                                th:text="${'Interpretation of QOL Perception Score: It is above or equal to the average of ' + averageqolScore + ' for parents with autistic kids. This
+                                                    indicate that you perceive a greater or equivalent quality of life compared to the other parents, which is good.'}">
+                            </td>
+                        </tr>
+                        <tr th:if="${qolScore} < ${averageqolScore}">
+                            <td colspan="3"
+                                th:text="${'Interpretation of QOL Perception Score: It is below the average of ' + averageqolScore + ' for parents with autistic kids. This
+                                                    indicate that you perceive a lower quality of life compared to the other parents. Please seek help with your other family members or social support services or professional services in caring for your autistic kids to avoid mental burnout and long term issues.'}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr th:if="${perceptionScore} >= ${averageperceptionScore}">
+                            <td colspan="3"
+                                th:text="${'Interpretation of Perception of the impact of the child Autistic Spectrum Disorder Symptoms Score: It is above or equal to the average of ' + averageperceptionScore + ' for parents with autistic kids. This
+                                                    indicate that you perceive fewer problems regarding your child behaviour compared to other parents, which is good, which is good.'}">
+                            </td>
+                        </tr>
+                        <tr th:if="${perceptionScore} < ${averageperceptionScore}">
+                            <td colspan="3"
+                                th:text="${'Interpretation of Perception of the impact of the child Autistic Spectrum Disorder Symptoms Score Perception Score: It is below the average of ' + averageperceptionScore + ' for parents with autistic kids. This
+                                                    indicate that you perceive more problems regarding your child behaviour compared to other parents. Please seek help with your other family members or social support services or professional services in caring for your autistic kids to avoid mental burnout and long term issues.'}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </table>
+                        <br>
+                    
+                        </body>
+                        
+                        </html>
+    

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+	<meta charset="utf-8">
+<body>
+    <div th:replace="fragments/layout.html :: menu"></div>
+    <div th:replace="fragments/layout.html :: sub_menu"></div>
+    <div class="container my-2 center">
+        <table>
+            <tr>
+                <td>
+                    <h3> Welcome to Fun Learning For Autistic Kids Portal</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    My Full Name: <span th:text="${fullName}"> </span>
+                    <br>
+                    My Username: <span sec:authentication="name">Username</span>
+                    <br>
+                    My Access Rights:<span sec:authentication="principal.authorities">Roles</span>
+                </td>
+            </tr>
+        </table>
+        <br>
+        Now is: <b th:text="${#execInfo.now.time}"></b></small> <br /> <small>(c) Fun Learning for Autistic Kids</small>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <title>Update Profile</title>
+
+</head>
+<body>
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+<script type="text/javascript" th:src="@{/js/profile.js}"></script>
+<div class="w-75 mx-auto mt-3">
+    <form id="mainform" th:action="@{/parent/submitchildprofile}" th:object="${child}" method="post">
+        <h2 class="form-signin-heading mb-4">Update <span th:text="*{userName}"></span>'s profile</h2>
+        <div class="container bg-danger py-2 mb-3 text-white" th:if="${action} == 'error'">Child's profile not found, please try again.</div>
+        <div class="container bg-danger py-2 mb-3 text-white" th:if="${action} == 'unsuccessful'">Failed to update child's profile</div>
+        <div class="container bg-danger py-2 mb-3 text-white" th:if="${action} == 'pswderror'">An error has occurred. Please try again later.</div>
+        <div class="form-group">
+            <label class="control-label" for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" th:field="*{fullName}" required/>
+            <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="help-block"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" th:field="*{email}" required/>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block"></span>
+        </div>
+        <input type="hidden" th:field="*{userName}">
+        <input type="hidden" th:field="*{password}">
+        <p id="confirmmsg" hidden style="color:red"><b>Please confirm your submission. If you CHANGE YOUR EMAIL, you would be LOGOUT immediately and please CHECK YOUR NEW EMAIL to RE-AUTHENTICATE your account again before you can login again.</b></p>
+        <div class="btn btn-primary" id="nextbtn" onclick="toggle_next()">Submit</div>
+        <div class="btn btn-primary" id="editbtn" onclick="toggle_edit()" hidden>Edit</div>
+        <input type="submit" class="btn btn-primary" id="submitbtn" value="Confirm & Submit" hidden>
+    </form>
+    <br>
+    <a th:href="@{'/parent/change-password?child=' + ${child.userName}}">Change Password</a>
+</div>
+</body>
+</html>

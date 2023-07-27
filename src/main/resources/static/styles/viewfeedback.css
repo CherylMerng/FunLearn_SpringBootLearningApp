@@ -1,0 +1,24 @@
+.rounded-xl {
+    border-radius: 5rem;
+    height: 30px;
+}
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: black;
+}
+.pagebtn {
+    border-radius: 25px;
+    background-color: #f5f5f5;
+    border: 2px solid #b9b9b9;
+    color: #8c8c8c;
+    font-weight: bold;
+}
+.btndisable {
+    opacity: 0.4;
+}
+h3{
+    width: 90%;
+    margin-top: 2rem !important;
+    margin-left: 4rem;
+}

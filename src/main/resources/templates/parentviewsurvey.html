@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <title>Quality of Life in Autism Questionaire Results</title>
+    </head>
+    <div class="container my-2 center">
+    
+        <body>
+            <h4>Quality of Life in Autism Questionaire Results </h4>
+            <br>
+            <h5 th:text=${surveyname}></h5>
+            <h6 th:text="${'Attempt Date: ' + surveyScore.attemptDate}"></h6>
+            <h6 th:text="${'Total Score: ' + surveyScore.totalScore}"></h6>
+            <table>
+                <tr>
+                    <td>SN</td>
+                    <td>Question</td>
+                    <td>Submitted Rating<br>(1- Strongly Disagree; 5- Strongly Agree)</td>
+                </tr>
+                <tr th:each="q, iter: ${surveyQuestionScore}">
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${q.surveyQuestion.description}"></td>
+                    <td th:text="${q.questionScore}"></td>
+                </tr>
+    
+            </table>
+            <br>
+        </body>
+    
+        </html>

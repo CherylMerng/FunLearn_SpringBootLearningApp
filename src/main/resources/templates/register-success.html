@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="utf-8">
+    <title>Register-Success</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <div th:if="${type == 'general'}">
+        <div th:replace="fragments/layout.html :: register"></div>
+    </div>
+    <div th:if="${type == 'child'}">
+        <div th:replace="fragments/layout.html :: menu"></div>
+        <div th:replace="fragments/layout.html :: sub_menu"></div>
+    </div>
+    <div class="justify-content-center mt-4">
+        <div class="container bg-success py-2 mb-3 text-white" th:if="${type == 'general'}">
+            Registration was successful, please activate your account by checking your inbox &amp; spam.<br>
+            If you have already activated it, please click <a class="font-weight-bold" th:href="@{/login}" style="color: white;" rel="noopener noreferrer">HERE</a> to login
+        </div>
+        <div class="container bg-success py-2 mb-3 text-white" th:if="${type == 'child'}">
+            Registration was successful, please activate your child's account by checking your inbox &amp; spam.<br>
+        </div>
+    </div>
+</body>
+</html>

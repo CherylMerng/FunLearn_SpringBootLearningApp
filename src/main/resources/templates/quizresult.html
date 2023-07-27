@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:replace="fragments/layout.html :: html_head">
+	<meta charset="utf-8">
+	<title>Facial Expressions Quiz Results</title></head>
+
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+
+<div class="container my-2 center">
+<body style="background-color:rgb(174, 248, 253);">
+    <h4>Facial Expressions Quiz Scoring </h4>
+        <h8> Disclaimer: The emotion tagged for each image may be subjective, as different persons present their emotions differently. And also there could be many emotions overlapping that the person feel while expressing them on his/her face.
+        <br> Hence, pls exercise discretion when going through with your kid the answers and explaining to your kid different scenarios at which 
+        <br> the same emotions can be presented differently.
+        <br> In addition, facial recognition alone is not sufficient to identify emotions, as other factors such as the person's body language and voice/tone 
+        <br> also contribute to a more complete picture to identify emotions. This is beyond the scope of this application.
+        </h8>
+	<table>
+        <br>
+        <tr>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question1}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question2}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question3}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question4}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question5}}"class="card img-fluid" style="width:120px"/></td>
+        </tr>
+        <tr>
+            <td th:text="${'Guess: ' + quiz.question1Guess}"></td>
+            <td th:text="${'Guess: ' + quiz.question2Guess}"></td>
+            <td th:text="${'Guess: ' + quiz.question3Guess}"></td>
+            <td th:text="${'Guess: ' + quiz.question4Guess}"></td>
+            <td th:text="${'Guess: ' + quiz.question5Guess}"></td>
+        </tr>
+        <tr>
+            <td th:if="${question1 == 'correct'}" style="color:green">Correct!</td>
+            <td th:if="${question1 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question1answer}"></td>
+            <td th:if="${question2 == 'correct'}" style="color:green">Correct!</td>
+            <td th:if="${question2 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question2answer}"></td>
+            <td th:if="${question3 == 'correct'}" style="color:green">Correct!</td>
+            <td th:if="${question3 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question3answer}"></td>
+            <td th:if="${question4 == 'correct'}" style="color:green">Correct!</td>
+            <td th:if="${question4 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question4answer}"></td>
+            <td th:if="${question5 == 'correct'}" style="color:green">Correct!</td>
+            <td th:if="${question5 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question5answer}"></td>
+        </tr>
+        <tr>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question6}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question7}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question8}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question9}}"class="card img-fluid" style="width:120px"/></td>
+            <td> <img th:src="@{${'/child/quiz/display/'+ quiz.question10}}"class="card img-fluid" style="width:120px"/></td>
+        </tr>
+        <tr>
+            <tr>
+                <td th:text="${'Guess: ' + quiz.question6Guess}"></td>
+                <td th:text="${'Guess: ' + quiz.question7Guess}"></td>
+                <td th:text="${'Guess: ' + quiz.question8Guess}"></td>
+                <td th:text="${'Guess: ' + quiz.question9Guess}"></td>
+                <td th:text="${'Guess: ' + quiz.question10Guess}"></td>
+            </tr>
+            <tr>
+                <td th:if="${question6 == 'correct'}" style="color:green">Correct!</td>
+                <td th:if="${question6 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question6answer}"></td>
+                <td th:if="${question7 == 'correct'}" style="color:green">Correct!</td>
+                <td th:if="${question7 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question7answer}"></td>
+                <td th:if="${question8 == 'correct'}" style="color:green">Correct!</td>
+                <td th:if="${question8 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question8answer}"></td>
+                <td th:if="${question9 == 'correct'}" style="color:green">Correct!</td>
+                <td th:if="${question9 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question9answer}"></td>
+                <td th:if="${question10 == 'correct'}" style="color:green">Correct!</td>
+                <td th:if="${question10 == 'wrong'}" style="color:red" th:text="${'Wrong! It is ' + question10answer}"></td>
+            </tr>
+            <tr><td colspan="5">&nbsp;</td></tr>
+            <tr><td colspan="5" th:text="${'Your score is ' + score + ' out of 10! ' + inverse + ' more to get full score!'}"></td></tr>
+            <tr>
+                <td colspan="5">
+                    <div sec:authorize="hasAuthority('child')">
+                        <br>
+                        <a th:href="@{/child/quiz}" class="btn btn-primary btn-sm mb-3">Take another quiz again</a>
+                    </div>
+                    <div sec:authorize="hasAuthority('parent')">
+                        <br>
+                        <a th:href="@{/parent/quiz}" class="btn btn-primary btn-sm mb-3">Take another quiz again</a>
+                    </div>
+                </td></tr>
+        </table></div>
+    <script>
+
+    </script>
+</body>
+</html>

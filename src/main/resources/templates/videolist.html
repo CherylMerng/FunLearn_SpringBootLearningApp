@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/layout.html :: html_head">
+    <meta charset="utf-8">
+    <title>Interesting Videos for Watching</title>
+</head>
+
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+
+<div class="container my-2 center">
+
+    <body style="background-color:rgb(174, 248, 253);">
+        <h2>Interesting Videos for Watching</h2>
+        <table>
+            <tr th:each="video: ${videos}">
+                <td> <img th:src="${video.imageURL}" class="card img-fluid" style="width:200px" /></td>
+                <td th:text="${video.title}"></td>
+                <td>
+                    <div sec:authorize="hasAuthority('child')">
+                    <form th:action="@{/child/selectedvideo(id=${video.videoId})}" method="POST">
+                        <input type="submit" value="View this video" class="btn btn-primary btn-sm mb-3"></a>
+                    </form></div>
+                    <div sec:authorize="hasAuthority('parent')">
+                        <form th:action="@{/parent/selectedvideo(id=${video.videoId})}" method="POST">
+                            <input type="submit" value="View this video" class="btn btn-primary btn-sm mb-3"></a>
+                        </form></div>
+                </td>
+            </tr>
+            <!-- <tr>
+                <td colspan="3">
+                    <div>
+                        <br>
+                        <a th:href="@{/child/menu}" class="btn btn-primary btn-sm mb-3">Return to Menu</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><br><a th:href="@{/logout}">LOGOUT</a></td>
+            </tr> -->
+        </table>
+</div>
+</body>
+
+</html>

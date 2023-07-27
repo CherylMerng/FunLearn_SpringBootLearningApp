@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head"></head>
+
+<link th:href="@{/styles/video-list.css}" rel="stylesheet" />
+<div th:replace="fragments/layout.html :: menu"></div>
+<div th:replace="fragments/layout.html :: sub_menu"></div>
+
+<div sec:authorize="hasAuthority('admin')">
+    <body >
+
+        <h1 style="text-align: center;">Interesting Videos to watch</h1>
+        <div class="add-search-container">
+            <div class="add-video-container"><a th:href="@{/admin/addvideo/}">Add New Video</a></div>
+            <div class="search-video-container">
+                <form th:action="@{/admin/viewvideolist}" method="POST" >
+                    <div>
+                        <!-- <label for="search">Search: </label> -->
+                        <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" placeholder="Search keyword">
+                        <input type="submit" value="Search">
+                    </div>
+                 </form>
+            </div>
+        </div>
+        <div>
+            <div th:each="video : ${videos}" class="image-container">
+                <div class="img-and-text-container">
+                    <div>
+                        <div>
+                            <img th:src="${video.imageURL}" class="image-container__thumbnail">
+                            <!-- <img src="https://img.youtube.com/vi/xKdetl6RDZ4/hqdefault.jpg" class="image-container__thumbnail"> -->
+                        </div>
+                    </div>
+                    <div class="image-container__text">
+                        <div>
+                            <p th:text="${video.title}" class="image-container__title">Title</p> 
+                        </div>
+                        <div>
+                            <p th:text="${video.description}" class="image-container__description">Description</p> 
+                        </div>
+                    </div>
+                </div>
+                <div class="watch-delete-container">
+                    <div>
+                        <form th:action="@{/admin/playvideo}" th:object="${video}" method="POST">
+                            <div>
+                                <input type="hidden" name="videoId" th:value="${video.videoId}"/>
+                                <input type="hidden" name="title" th:value="${video.title}"/>
+                                <input type="hidden" name="description" th:value="${video.description}"/>
+                                <input type="hidden" name="videoURL" th:value="${video.videoURL}"/>
+                                <input type="hidden" name="imageURL" th:value="${video.imageURL}"/>
+                                <input type="hidden" name="postDate" th:value="${video.postDate}"/>
+                                <input type="submit" class="video-btn" value="Watch Video"></input>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="update-btn">
+                        <form th:action="@{/admin/editvideo}" th:object="${video}" method="POST">
+                            <div>
+                                <input type="hidden" name="videoId" th:value="${video.videoId}"/>
+                                <input type="hidden" name="title" th:value="${video.title}"/>
+                                <input type="hidden" name="description" th:value="${video.description}"/>
+                                <input type="hidden" name="videoURL" th:value="${video.videoURL}"/>
+                                <input type="hidden" name="imageURL" th:value="${video.imageURL}"/>
+                                <input type="hidden" name="postDate" th:value="${video.postDate}"/>
+                                <input type="submit" class="video-btn" value="Update Video"></input>
+                            </div>
+                        </form>
+                    </div>
+                    <div> 
+                        <div class="delete-btn">
+                                <form th:action="@{/admin/deletevideo}" th:object="${video}" method="POST">
+                                    <div>
+                                        <input type="hidden" name="id" th:value="${video.videoId}"/>
+                                        <input type="hidden" name="title" th:value="${video.title}"/>
+                                        <input type="hidden" name="description" th:value="${video.description}"/>
+                                        <input type="hidden" name="videoURL" th:value="${video.videoURL}"/>
+                                        <input type="hidden" name="imageURL" th:value="${video.imageURL}"/>
+                                        <input type="hidden" name="postDate" th:value="${video.postDate}"/>
+                                        <input type="submit" class="video-btn" value="Remove From List"></input>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</div>
+
+</html>
